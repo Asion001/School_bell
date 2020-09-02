@@ -1,14 +1,15 @@
+import time
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.config import Config
 from kivy.storage.jsonstore import JsonStore
+from kivy.core.audio import SoundLoader
 
-store = JsonStore('data.json')
+sound = SoundLoader.load('./alarm.wav')
+store = JsonStore('./data.json')
 
-
-import time
 
 class setup():
     def __init__(self):
@@ -18,22 +19,29 @@ class setup():
         
         store.put("data", Lessons = data)
         print(store.get("data"))
+
     def io(self,q):
-        return input(str(q) + " ")
+        a = input(str(q) + " ")
+        return a
+
 
 class IncrediblyCrudeClock(Label):
     def update(self, *args):
         self.text = time.asctime()
+        print(time.asctime())
 
 class TimeApp(App):
     def build(self):
         self.title = "Lessons alarm"
         crudeclock = IncrediblyCrudeClock()
-        Clock.schedule_interval(crudeclock.update, 1)
+        Clock.schedule_interval(crudeclock.update, 0.2)
         crudeclock.set_top = True
+
+
         return crudeclock
 
 if __name__ == "__main__":
     print(store.count())
     if store.count() == 0: setup()
+
     TimeApp().run()
