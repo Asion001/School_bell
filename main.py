@@ -32,8 +32,8 @@ class setup:
 class IncrediblyCrudeClock(Label):
     def update(self, *args):
         self.text = time.asctime()
-        print(TimeApp.fl_alarm," in fl")
-        print(time.asctime().split()[3][:-3], "in time")
+        #print(TimeApp.fl_alarm," in fl")
+        #print(time.asctime().split()[3][:-3], "in time")
         if TimeApp.fl_alarm != time.asctime().split()[3][:-3]: TimeApp().parse_time()
 
 
@@ -44,13 +44,13 @@ class TimeApp(App):
         for num in store.get("data").get("Lessons"):
             if num == time.asctime().split()[3][:-3]:
                 TimeApp.fl_alarm = num
-                print(num," out fl")
+                #print(num," out fl")
                 self.alarm()
                 break
   
     def alarm(self,*args):
         sound = SoundLoader.load('./alarm.wav')
-        sound.volume = 0.5
+        #sound.volume = 0.5
         sound.play()
 
     def build(self):
