@@ -16,10 +16,16 @@ public:
     ~Alarm();
 
 private slots:
-    void on_pushButton_pressed();
+
     void Curent_Time_Update();
     void alarm();
-   // void on_pushButton_released();
+    void on_pushButton_clicked();
+    void save_settings();
+    void settings_read(QString filename);
+    void settings_write(QString filename);
+    void setup();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::Alarm *ui;
