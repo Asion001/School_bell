@@ -2,7 +2,7 @@
 #define ALARM_H
 
 #include <QMainWindow>
-
+#include <string.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Alarm; }
 QT_END_NAMESPACE
@@ -21,8 +21,8 @@ private slots:
     void alarm();
     void on_pushButton_clicked();
     void save_settings();
-    void settings_read(QString filename);
-    void settings_write(QString filename);
+    void settings_read(std::string filename);
+    void settings_write(std::string filename, std::string data);
     void setup();
 
     void on_pushButton_2_clicked();

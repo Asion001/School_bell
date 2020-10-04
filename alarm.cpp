@@ -11,7 +11,6 @@ Alarm::Alarm(QWidget *parent)
     , ui(new Ui::Alarm)
 {
     ui->setupUi(this);
-
     Curent_Time_Update();
     QTimer *t = new QTimer(this);
     t->setInterval(1000);
@@ -54,51 +53,63 @@ void Alarm::on_pushButton_clicked()
     alarm();
 }
 
-QString data_txt;
+std::string data_txt;
 void Alarm::save_settings(){
 
-settings_read("data.txt");
-if(data_txt == "") setup();
-
-settings_write("data.txt");
-
-qDebug() << data_txt;
-}
-
-void Alarm::settings_read(QString filename)
-{
-    QFile file(filename);
-    if(!file.open(QFile::ReadOnly |
-                  QFile::Text))
+    settings_read("data.txt");
+    qDebug() << "Read data - " << QString::fromStdString(data_txt);
+    if(data_txt == "")
     {
-        qDebug() << " Could not open the file for reading";
-        return;
+        data_txt = "Alarms\n";
+        setup();
     }
-    QTextStream in(&file);
-    QString myText = in.readAll();
-    data_txt = myText;
-    file.close();
+    //if(data_txt == "") setup();
+
+    settings_write("data.txt", data_txt);
+    qDebug() << "Write data - " << QString::fromStdString(data_txt);
 }
 
-void Alarm::settings_write(QString filename)
+
+
+#include <fstream>
+#include <iostream>
+#include <string.h>
+
+void Alarm::settings_read(std::string filename)
 {
-    QFile file(filename);
-    if(!file.open(QFile::WriteOnly |
-                  QFile::Text))
-    {
-        qDebug() << " Could not open file for writing";
-        return;
-    }
-    QTextStream out(&file);
-    out << data_txt;
-    file.flush();
-    file.close();
+    using namespace std;
+
+    // open a file in read mode.
+    std::ifstream infile;
+    infile.open(filename);
+
+    infile >> data_txt;
+    // close the opened file.
+    infile.close();
+
 }
+
+ void Alarm::settings_write(std::string filename, std::string data)
+{
+    using namespace std;
+
+    // open a file in write mode.
+    ofstream outfile;
+    outfile.open(filename);
+
+    // write inputted data into the file.
+    outfile << data << "\n";
+
+    // close the opened file.
+    outfile.close();
+
+}
+
 QStringList lessons;
-void Alarm::setup(){
-
+void Alarm::setup()
+{
+qDebug() << "Setup";
 }
-
 
 void Alarm::on_pushButton_2_clicked()
 {
