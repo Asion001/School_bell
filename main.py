@@ -49,7 +49,7 @@ class TimeApp(App):
 
     def build(self):
         self.title = "Lessons alarm"
-        
+
         crudeclock = IncrediblyCrudeClock()
         Clock.schedule_interval(crudeclock.update, 1)
         crudeclock.set_top = True
@@ -64,5 +64,4 @@ class TimeApp(App):
 if __name__ == "__main__":
     print(store.count())
     if store.count() == 0: setup()
-    #TimeApp().alarm()
     TimeApp().run()
