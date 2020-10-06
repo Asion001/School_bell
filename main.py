@@ -10,7 +10,6 @@ from kivy.uix.boxlayout import BoxLayout
 
 store = JsonStore('./data.json')
 
-
 class setup:
     def __init__(self):
         data = []
@@ -59,14 +58,12 @@ class TimeApp(App):
         Clock.schedule_interval(crudeclock.update, 0.2)
         crudeclock.set_top = True
 
-        bl = BoxLayout(orientation="vertical", padding=20)
+        bl = BoxLayout(orientation="vertical", padding=10)
 
         bl.add_widget(crudeclock)
-        bl.add_widget(Button(text="Clear settings", on_press=setup.clear))
+        #bl.add_widget(Button(text="Settings", on_press=setup.clear))
         bl.add_widget(Button(text="ALARM!", on_press=TimeApp().alarm))
         return bl
-
-
 
 if __name__ == "__main__":
     print(store.count())
