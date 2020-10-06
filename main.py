@@ -3,12 +3,12 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.uix.button import Button
-from kivy.config import Config
 from kivy.storage.jsonstore import JsonStore
 from kivy.core.audio import SoundLoader
 from kivy.uix.boxlayout import BoxLayout
 
 store = JsonStore('./data.json')
+sound = SoundLoader.load('./alarm.wav')
 
 class setup:
     def __init__(self):
@@ -31,8 +31,6 @@ class setup:
 class IncrediblyCrudeClock(Label):
     def update(self, *args):
         self.text = time.asctime()
-        #print(TimeApp.fl_alarm," in fl")
-        #print(time.asctime().split()[3][:-3], "in time")
         if TimeApp.fl_alarm != time.asctime().split()[3][:-3]: TimeApp().parse_time()
 
 
@@ -43,26 +41,24 @@ class TimeApp(App):
         for num in store.get("data").get("Lessons"):
             if num == time.asctime().split()[3][:-3]:
                 TimeApp.fl_alarm = num
-                #print(num," out fl")
                 self.alarm()
                 break
   
     def alarm(self,*args):
-        sound = SoundLoader.load('./alarm.wav')
-        #sound.volume = 0.5
         sound.play()
 
     def build(self):
         self.title = "Lessons alarm"
+        
         crudeclock = IncrediblyCrudeClock()
-        Clock.schedule_interval(crudeclock.update, 0.2)
+        Clock.schedule_interval(crudeclock.update, 1)
         crudeclock.set_top = True
 
         bl = BoxLayout(orientation="vertical", padding=10)
 
         bl.add_widget(crudeclock)
-        #bl.add_widget(Button(text="Settings", on_press=setup.clear))
         bl.add_widget(Button(text="ALARM!", on_press=TimeApp().alarm))
+
         return bl
 
 if __name__ == "__main__":
