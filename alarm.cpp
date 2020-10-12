@@ -5,6 +5,7 @@
 #include <QtMultimedia/QSound>
 #include <QDebug>
 #include <QFile>
+#include <QMessageBox>
 
 Alarm::Alarm(QWidget *parent)
     : QMainWindow(parent)
@@ -28,24 +29,33 @@ Alarm::~Alarm()
     delete ui;
 }
 
+std::string lessons[50];
+
 QString alarm_flag;
 void Alarm::Curent_Time_Update(){
     QString time1 = QTime::currentTime().toString();
     ui->label->setText(time1);
     time1.resize(time1.size() - 3);
 
-    QString lesson_time = "17:58";
-
-    if(time1 == lesson_time and time1.compare(alarm_flag) == 1)
+    if(time1 != alarm_flag)
     {
-      alarm_flag =time1;
-      alarm();
-    }
+      alarm_flag = time1;
+      for (int i = 0; i < 50; i++)
+      {
+          if(time1 == QString::fromStdString(lessons[i]))
+          {
+              alarm();
+              break;
+          }
+       }
 
+    }
 }
 
-void Alarm::alarm(){
+void Alarm::alarm()
+{
 QSound::play("alarm.wav");
+qDebug() << "Play on " << QTime::currentTime().toString() << "\n";
 }
 
 void Alarm::on_pushButton_clicked()
@@ -53,65 +63,82 @@ void Alarm::on_pushButton_clicked()
     alarm();
 }
 
-std::string data_txt;
-void Alarm::save_settings(){
+std::string data_txt[50];
+int data_size = 0;
 
-    settings_read("data.txt");
-    qDebug() << "Read data - " << QString::fromStdString(data_txt);
-    if(data_txt == "")
+
+void Alarm::save_settings()
+{
+    using namespace std;
+    settings_read("data.txt", data_txt);
+
+    for (int i = 0; i < 50; i++)
     {
-        data_txt = "Alarms\n";
-        setup();
+        if(data_txt[i] != "")
+        {
+            qDebug() << QString::fromStdString(data_txt[i]) << "\n";
+            data_size++;
+        }
     }
-    //if(data_txt == "") setup();
 
-    settings_write("data.txt", data_txt);
-    qDebug() << "Write data - " << QString::fromStdString(data_txt);
+    if(data_txt[0] != "Alarms:" or data_size < 2)
+    {
+        qDebug() << "Wrong data file\n size - " << data_size;
+        QMessageBox::critical(this,tr("ERROR"),tr("Wrong data file!") );
+    }
+
+    for (int i = 1; i < 50; i++)
+    {
+        if(data_txt[i] != "")
+        {
+            lessons[i-1] = data_txt[i];
+        }
+    }
+
 }
 
+#include<iostream>
+#include<fstream>
 
-
-#include <fstream>
-#include <iostream>
-#include <string.h>
-
-void Alarm::settings_read(std::string filename)
+void Alarm::settings_read(std::string filename, std::string data[50])
 {
     using namespace std;
 
-    // open a file in read mode.
-    std::ifstream infile;
-    infile.open(filename);
+    string tmp_data;
+    ifstream IN(filename);
 
-    infile >> data_txt;
-    // close the opened file.
-    infile.close();
+    int i = 0;
+    while (getline (IN, tmp_data))
+    {
+        data[i] = tmp_data;
+        i++;
+    }
 
+    IN.close();
 }
 
- void Alarm::settings_write(std::string filename, std::string data)
+void Alarm::settings_write(std::string filename, std::string data[50])
 {
     using namespace std;
+    ofstream IN(filename);
 
-    // open a file in write mode.
-    ofstream outfile;
-    outfile.open(filename);
+    for (int i = 0; i < 50; i++)
+    {
+        if(data[i] != "") IN << data[i] << "\n";
+    }
 
-    // write inputted data into the file.
-    outfile << data << "\n";
-
-    // close the opened file.
-    outfile.close();
-
+    IN.close();
 }
 
-QStringList lessons;
+
 void Alarm::setup()
 {
-qDebug() << "Setup";
+    qDebug() << "Setup";
 }
 
 void Alarm::on_pushButton_2_clicked()
 {
     setup();
 }
+
+

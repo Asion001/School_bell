@@ -21,10 +21,9 @@ private slots:
     void alarm();
     void on_pushButton_clicked();
     void save_settings();
-    void settings_read(std::string filename);
-    void settings_write(std::string filename, std::string data);
+    void settings_read(std::string filename, std::string data[50]);
+    void settings_write(std::string filename, std::string data[50]);
     void setup();
-
     void on_pushButton_2_clicked();
 
 private:
