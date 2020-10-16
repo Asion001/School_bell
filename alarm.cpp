@@ -18,6 +18,7 @@ Alarm::Alarm(QWidget *parent)
     connect(t, &QTimer::timeout, [&]() { Curent_Time_Update(); } );
     t->start();
 
+
     save_settings();
 
     qDebug() << "Start App";
@@ -52,9 +53,13 @@ void Alarm::Curent_Time_Update(){
     }
 }
 
+
+
 void Alarm::alarm()
 {
-QSound::play("alarm.wav");
+
+QString alarm_path = QCoreApplication::applicationDirPath() + "/alarm.wav";
+QSound::play(alarm_path);
 qDebug() << "Play on " << QTime::currentTime().toString() << "\n";
 }
 
@@ -67,10 +72,14 @@ std::string data_txt[50];
 int data_size = 0;
 
 
+
 void Alarm::save_settings()
 {
+    QString data_path = QCoreApplication::applicationDirPath() + "/data.txt";
+
     using namespace std;
-    settings_read("data.txt", data_txt);
+    qDebug() << data_path;
+    settings_read(data_path.toStdString() , data_txt);
 
     for (int i = 0; i < 50; i++)
     {

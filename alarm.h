@@ -15,6 +15,7 @@ public:
     Alarm(QWidget *parent = nullptr);
     ~Alarm();
 
+
 private slots:
 
     void Curent_Time_Update();
@@ -29,4 +30,6 @@ private slots:
 private:
     Ui::Alarm *ui;
 };
+
+
 #endif // ALARM_H
