@@ -1,3 +1,4 @@
 #+CAPTION: School_alarm
 [[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm2.png]]
 [[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm.png]]
+Need to work 2 files, "data.txt"(Example in repo) and audio file "alarm.wav".
