@@ -1,2 +1,3 @@
 #+CAPTION: School_alarm
-[[https://gitlab.com/Asion001/School_alarm/-/blob/qt_C++/School_alarm.png]]
+[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm2.png]]
+[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm.png]]
