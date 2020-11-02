@@ -1,0 +1,12 @@
+#+TITLE: School alarm
+
+#+CAPTION: Img
+#+ATTR_HTML: :alt Img :title Img :align left
+[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm2.png]]
+* Need to work 2 files, "data.txt"(Example in repo) and audio file "alarm.wav".
+#+CAPTION: Img
+#+ATTR_HTML: :alt Img :title Img :align left
+[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm.png]]
+
+
+Compiled file "./School_alarm" for archlinux, dont work on other OS.
