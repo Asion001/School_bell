@@ -13,3 +13,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_pushButton_clicked()
+{
+    bell();
+}
+
+void MainWindow::bell()
+{
+    QSound::play(QCoreApplication::applicationDirPath() + "/alarm.waw");
+}
+
+void MainWindow::time()
+{
+
+}
+
+void MainWindow::setings()
+{
+
+}
+
+void MainWindow::music()
+{
+
+}

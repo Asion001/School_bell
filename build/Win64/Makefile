@@ -342,6 +342,10 @@ Makefile: ../../src/School_bell.pro /home/asion/QT/deploy/mxe-build-2020-06-06/u
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/yacc.prf \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/lex.prf \
 		../../src/School_bell.pro \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/mediaservice/dsengine.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/mediaservice/qtmedia_audioengine.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/audio/qtaudio_windows.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/playlistformats/qtmultimedia_m3u.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/styles/qwindowsvistastyle.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/platforms/qwindows.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qgif.prl \
@@ -354,8 +358,11 @@ Makefile: ../../src/School_bell.pro /home/asion/QT/deploy/mxe-build-2020-06-06/u
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qtiff.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qwbmp.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qwebp.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/bearer/qgenericbearer.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Multimedia.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Widgets.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Gui.prl \
+		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Network.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Core.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/qtmain.prl \
 		/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/build_pass.prf
@@ -632,6 +639,10 @@ Makefile: ../../src/School_bell.pro /home/asion/QT/deploy/mxe-build-2020-06-06/u
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/yacc.prf:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/lex.prf:
 ../../src/School_bell.pro:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/mediaservice/dsengine.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/mediaservice/qtmedia_audioengine.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/audio/qtaudio_windows.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/playlistformats/qtmultimedia_m3u.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/styles/qwindowsvistastyle.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/platforms/qwindows.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qgif.prl:
@@ -644,8 +655,11 @@ Makefile: ../../src/School_bell.pro /home/asion/QT/deploy/mxe-build-2020-06-06/u
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qtiff.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qwbmp.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/imageformats/qwebp.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/plugins/bearer/qgenericbearer.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Multimedia.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Widgets.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Gui.prl:
+/home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Network.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/Qt5Core.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/lib/qtmain.prl:
 /home/asion/QT/deploy/mxe-build-2020-06-06/usr/x86_64-w64-mingw32.static/qt5/mkspecs/features/build_pass.prf:
