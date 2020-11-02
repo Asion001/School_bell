@@ -26,7 +26,7 @@ private:
     void time();
     void setings();
     void music();
-    void bell();
+    void ring();
     QTime lessons_list[100];
 };
 #endif // MAINWINDOW_H
