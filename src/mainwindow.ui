@@ -38,7 +38,7 @@ selection-color: rgb(220, 220, 220);</string>
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>TextLabel</string>
+       <string/>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

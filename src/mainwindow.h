@@ -28,5 +28,7 @@ private:
     void music();
     void ring();
     QTime lessons_list[100];
+    QTime ring_now;
+    int count_lessons = 0;
 };
 #endif // MAINWINDOW_H

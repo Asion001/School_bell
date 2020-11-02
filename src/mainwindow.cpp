@@ -27,6 +27,8 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::ring()
 {
     QSound::play(QCoreApplication::applicationDirPath() + "/bell.wav");
+    ring_now = QTime::currentTime();
+    qDebug() << "Ring on " << ring_now.toString() << "\n";
 }
 
 void MainWindow::time()
@@ -37,7 +39,18 @@ void MainWindow::time()
 void MainWindow::setings()
 {
     QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, [&] { ui->label->setText(QTime::currentTime().toString()); } );
+    connect(timer, &QTimer::timeout, this, [&]() {
+        ui->label->setText(QTime::currentTime().toString());
+        for (int i = 0; i < count_lessons; i++)
+        {
+            if (QTime::currentTime().hour() == lessons_list[i].hour() and QTime::currentTime().minute() == lessons_list[i].minute())
+            {
+                if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute()) ring();
+                else break;
+            }
+        }
+
+    } );
     timer->start(1000);
 
     QFile file(QCoreApplication::applicationDirPath() + "/data.txt");
@@ -49,20 +62,23 @@ void MainWindow::setings()
     }
 
     bool file_ok = 0;
-    int i = 0;
     while (!file.atEnd()) {
         QString line = file.readLine();
-        qDebug() << "line " << i << " = " << line << "\n";
+        qDebug() << "line " << count_lessons << " = " << line << "\n";
 
         if (line == "Alarms:\n") file_ok = 1;
         else if (file_ok)
         {
-            lessons_list[i] = QTime::fromString(line,"hh':'mm'\n'");
-            i += 1;
+            lessons_list[count_lessons] = QTime::fromString(line,"hh':'mm'\n'");
+            count_lessons++;
         }
     }
 
-   if (i < 2) QMessageBox::critical(this,tr("File error"),tr("Not have times in data file or wrong format!") );
+   if (count_lessons < 2)
+   {
+       QMessageBox::critical(this,tr("File error"),tr("Not have times in data file or wrong format!") );
+       return;
+   }
 }
 
 void MainWindow::music()
