@@ -154,3 +154,8 @@ void Alarm::settings_write(std::string filename, std::string data[50])
 
     IN.close();
 }
+
+void Alarm::music_read()
+{
+
+}

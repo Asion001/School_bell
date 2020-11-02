@@ -24,6 +24,7 @@ private slots:
     void save_settings();
     void settings_read(std::string filename, std::string data[50]);
     void settings_write(std::string filename, std::string data[50]);
+    void music_read();
 
 private:
     Ui::Alarm *ui;
