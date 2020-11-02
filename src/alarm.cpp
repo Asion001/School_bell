@@ -78,22 +78,17 @@ void Alarm::Curent_Time_Update()
 }
 
 
-
 void Alarm::alarm()
 {
-QString alarm_path = QCoreApplication::applicationDirPath() + "/alarm.wav";
-QSound::play(alarm_path);
-qDebug() << "Play on " << QTime::currentTime().toString() << "\n";
+    QString alarm_path = QCoreApplication::applicationDirPath() + "/alarm.wav";
+    QSound::play(alarm_path);
+    qDebug() << "Play on " << QTime::currentTime().toString() << "\n";
 }
-
-
 
 void Alarm::on_pushButton_clicked()
 {
     alarm();
 }
-
-
 
 void Alarm::save_settings()
 {
