@@ -86,8 +86,10 @@ void MainWindow::setings()
 
     QStringList music_paths = QDir(QCoreApplication::applicationDirPath() + "/media").entryList(QDir::Files);
     for (int i = 0; i < music_paths.length(); i++) music_paths[i] = QCoreApplication::applicationDirPath() + "/media/" + music_paths[i];
-    for (int i = 0; i < music_paths.length(); i++)playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
+    for (int i = 0; i < music_paths.length(); i++) playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
     qDebug() << "Files:\n" << music_paths << "\n" ;
     qInfo() << playlist.mediaCount() << " songs\n";
     playlist.shuffle();
+    playlist.setCurrentIndex(0);
+    player.setPlaylist(&playlist);
 }
