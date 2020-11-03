@@ -1,12 +1,7 @@
-#+TITLE: School alarm
+#+TITLE: School bell
 
 #+CAPTION: Img
-#+ATTR_HTML: :alt Img :title Img :align left
-[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm2.png]]
-* Need to work 2 files, "data.txt"(Example in repo) and audio file "alarm.wav".
-#+CAPTION: Img
-#+ATTR_HTML: :alt Img :title Img :align left
-[[https://gitlab.com/Asion001/School_alarm/-/raw/qt_C++/School_alarm.png]]
+#+ATTR_HTML: :alt Img :title Img :align top
+[[https://gitlab.com/Asion001/School_bell/-/raw/master/School_alarm.png]]
+* Need to work: schedule in "./data.txt"(Example in repo), audio file "./bell.wav", and folder with music "./media".
 
-
-Compiled file "./School_alarm" for archlinux, dont work on other OS.
