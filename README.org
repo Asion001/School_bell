@@ -3,5 +3,5 @@
 #+CAPTION: Img
 #+ATTR_HTML: :alt Img :title Img :align top
 [[https://gitlab.com/Asion001/School_bell/-/raw/master/School_alarm.png]]
-* Need to work: schedule in "./data.txt"(Example in repo), audio file "./bell.wav", and folder with music "./media".
+* Need to work: schedule in "./data.txt"(Example in repo), audio file "./bell.wav", and folder with music "./media/".
 
