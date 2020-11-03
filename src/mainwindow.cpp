@@ -56,7 +56,26 @@ void MainWindow::time()
     {
         if (QTime::currentTime().hour() == lessons_list[i].hour() and QTime::currentTime().minute() == lessons_list[i].minute())
         {
-            if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute()) ring();
+            if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute())
+            {
+                player.stop();
+                ring();
+            }
+            else break;
+        }
+        if (QTime::currentTime().hour() == end_lessons_list[i].hour() and QTime::currentTime().minute() == end_lessons_list[i].minute())
+        {
+            if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute())
+            {
+                ring();
+                QTimer::singleShot(10000,[&]()
+                {
+                    qDebug() << "Play music " << "\n";
+                    player.play();
+                    player.playlist()->next();
+                } );
+
+            }
             else break;
         }
     }
@@ -107,6 +126,12 @@ void MainWindow::setings()
         return;
     }
 
+    for (int i = 0;i < count_lessons;i++ )
+        {
+            end_lessons_list[i] = lessons_list[i].addSecs(lesson_time * 60);
+            qDebug() << end_lessons_list[i].toString() << " end lesson time lis \n";
+        }
+
     QStringList music_paths = QDir(QCoreApplication::applicationDirPath() + "/media").entryList(QDir::Files);
     for (int i = 0; i < music_paths.length(); i++) music_paths[i] = QCoreApplication::applicationDirPath() + "/media/" + music_paths[i];
     for (int i = 0; i < music_paths.length(); i++) playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
@@ -118,4 +143,5 @@ void MainWindow::setings()
     playlist.shuffle();
     playlist.setCurrentIndex(0);
     player.setPlaylist(&playlist);
+    player.setVolume(50);
 }

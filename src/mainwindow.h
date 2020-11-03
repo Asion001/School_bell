@@ -20,9 +20,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
-
     void on_pushButton_3_clicked();
 
 private:
@@ -30,7 +28,8 @@ private:
     void time();
     void setings();
     void ring();
-    QTime lessons_list[100];
+    QTime lessons_list[10];
+    QTime end_lessons_list[10];
     QTime ring_now;
     QMediaPlaylist playlist;
     QMediaPlayer player;
