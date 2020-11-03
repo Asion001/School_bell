@@ -19,9 +19,27 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Dont warning", "Ring?",
+    reply = QMessageBox::question(this, "Are you sure?", "Ring?",
                                     QMessageBox::No|QMessageBox::Yes);
     if (reply == QMessageBox::Yes) ring();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    qDebug() << player.state() << "\n";
+    if (player.state() == QMediaPlayer::PausedState or player.state() == QMediaPlayer::StoppedState)
+    {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Are you sure?", "Play music?",
+                                        QMessageBox::No|QMessageBox::Yes);
+        if (reply == QMessageBox::Yes) player.play();
+    }
+    else player.pause();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    player.playlist()->next();
 }
 
 void MainWindow::ring()
@@ -59,13 +77,13 @@ void MainWindow::setings()
     }
 
     int data_index = 0;
-    qDebug() << "Day of week now " << QDate::currentDate().dayOfWeek() << "\n";
     while (!file.atEnd()) {
         QString line = file.readLine();
-        qInfo() << "line " << count_lessons << " = " << line << "\n";
+        qDebug() << "line " << count_lessons << " = " << line << "\n";
 
-        if (line == "Alarms:\n") data_index = 1;
+        if (line == "Time:\n") data_index = 1;
         else if (line == "Days:\n") data_index = 2;
+        else if (line == "Lesson time:\n") data_index = 3;
         else if (data_index == 1)
         {
             lessons_list[count_lessons] = QTime::fromString(line,"hh':'mm'\n'");
@@ -74,6 +92,11 @@ void MainWindow::setings()
         else if (data_index == 2)
         {
             //here must be days
+        }
+        else if (data_index == 3)
+        {
+            line.resize(2);
+            lesson_time = line.toInt();
         }
 
     }
@@ -88,7 +111,10 @@ void MainWindow::setings()
     for (int i = 0; i < music_paths.length(); i++) music_paths[i] = QCoreApplication::applicationDirPath() + "/media/" + music_paths[i];
     for (int i = 0; i < music_paths.length(); i++) playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
     qDebug() << "Files:\n" << music_paths << "\n" ;
+    qDebug() << "Day of week now " << QDate::currentDate().dayOfWeek() << "\n";
     qInfo() << playlist.mediaCount() << " songs\n";
+    qInfo() << "Lesson time " << lesson_time << "\n";
+    qInfo() << "Lesson count " << count_lessons << "\n";
     playlist.shuffle();
     playlist.setCurrentIndex(0);
     player.setPlaylist(&playlist);

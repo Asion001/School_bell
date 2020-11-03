@@ -21,6 +21,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     void time();
@@ -31,5 +35,6 @@ private:
     QMediaPlaylist playlist;
     QMediaPlayer player;
     int count_lessons = 0;
+    int lesson_time = 45;
 };
 #endif // MAINWINDOW_H
