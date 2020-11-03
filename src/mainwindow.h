@@ -25,10 +25,11 @@ private:
     Ui::MainWindow *ui;
     void time();
     void setings();
-    void music();
     void ring();
     QTime lessons_list[100];
     QTime ring_now;
+    QMediaPlaylist playlist;
+    QMediaPlayer player;
     int count_lessons = 0;
 };
 #endif // MAINWINDOW_H
