@@ -8,7 +8,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    setings();
+    if (setings() != 0)
+    {
+        ui->label->setText("ERROR");
+    }
 }
 
 MainWindow::~MainWindow()
@@ -42,6 +45,11 @@ void MainWindow::on_pushButton_3_clicked()
     player.playlist()->next();
 }
 
+void MainWindow::on_pushButton_4_clicked()
+{
+    player.playlist()->previous();
+}
+
 void MainWindow::ring()
 {
     QSound::play(QCoreApplication::applicationDirPath() + "/bell.wav");
@@ -51,6 +59,19 @@ void MainWindow::ring()
 
 void MainWindow::time()
 {
+    QString status_text;
+
+    for (int i = 0; i < count_lessons; i++)
+    {
+        if (QTime::currentTime() < lessons_list[i])
+        {
+            status_text = QString::number(QTime::currentTime().secsTo(lessons_list[i]) / 60) + " minutes to lesson " + QString::number(i);
+            break;
+        }
+        else status_text = "All Lessons are over :)";
+    }
+    ui->statusbar->showMessage(status_text);
+
     ui->label->setText(QTime::currentTime().toString());
     for (int i = 0; i < count_lessons; i++)
     {
@@ -59,7 +80,7 @@ void MainWindow::time()
             if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute())
             {
                 player.stop();
-                ring();
+                QTimer::singleShot(2000,[&](){ring();});
             }
             else break;
         }
@@ -81,18 +102,14 @@ void MainWindow::time()
     }
 }
 
-void MainWindow::setings()
+int MainWindow::setings()
 {
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, [&]() {time();} );
-    timer->start(1000);
-
     QFile file(QCoreApplication::applicationDirPath() + "/data.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qWarning() << "Data.txt error " << "\n";
         QMessageBox::critical(this,tr("File error"),tr("Cant read file!") );
-        return;
+        return 1;
     }
 
     int data_index = 0;
@@ -102,7 +119,7 @@ void MainWindow::setings()
 
         if (line == "Time:\n") data_index = 1;
         else if (line == "Days:\n") data_index = 2;
-        else if (line == "Lesson time:\n") data_index = 3;
+        else if (line == "Lessons time:\n") data_index = 3;
         else if (data_index == 1)
         {
             lessons_list[count_lessons] = QTime::fromString(line,"hh':'mm'\n'");
@@ -119,29 +136,69 @@ void MainWindow::setings()
         }
 
     }
-    if (count_lessons < 2)
+    if (count_lessons < 1)
     {
         qWarning() << "Not have times in data file or wrong format!\n";
         QMessageBox::critical(this,tr("File error"),tr("Not have times in data file or wrong format!") );
-        return;
+        return 3;
     }
 
-    for (int i = 0;i < count_lessons;i++ )
+    if (QFile::exists(QCoreApplication::applicationDirPath() + "/bell.wav") != true)
+    {
+        {
+            qWarning() << "Song file not exist\n";
+            QMessageBox::critical(this,tr("File error"),tr("Song file not exist!") );
+            return 4;
+        }
+    }
+
+    int pos = 0;
+    while (pos < count_lessons)
+    {
+        if (pos == 0 or lessons_list[pos] >= lessons_list[pos - 1]) pos++;
+        else
+        {
+            qSwap(lessons_list[pos], lessons_list[pos - 1]);
+            pos -= 1;
+        }
+    }
+
+    for (int i = 0;i < count_lessons;i++ ) qDebug() << lessons_list[i].toString() << " Sorted lessons" << i;
+    if (lesson_time !=0)
+    {
+        for (int i = 0; i < count_lessons;i++ )
         {
             end_lessons_list[i] = lessons_list[i].addSecs(lesson_time * 60);
             qDebug() << end_lessons_list[i].toString() << " end lesson time lis \n";
         }
+    }
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, [&]() {time();} );
+    timer->start(1000);
 
     QStringList music_paths = QDir(QCoreApplication::applicationDirPath() + "/media").entryList(QDir::Files);
-    for (int i = 0; i < music_paths.length(); i++) music_paths[i] = QCoreApplication::applicationDirPath() + "/media/" + music_paths[i];
-    for (int i = 0; i < music_paths.length(); i++) playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
+
+    if (music_paths.length() == 0)
+    {
+        qWarning() << "Song file not exist\n";
+        QMessageBox::critical(this,tr("File error"),tr("Media folder is empty!") );
+        //return 1;
+    }else
+    {
+        for (int i = 0; i < music_paths.length(); i++) music_paths[i] = QCoreApplication::applicationDirPath() + "/media/" + music_paths[i];
+        for (int i = 0; i < music_paths.length(); i++) playlist.addMedia(QMediaContent(QUrl::fromLocalFile(music_paths[i])));
+        playlist.shuffle();
+        playlist.setPlaybackMode(QMediaPlaylist::Loop);
+        playlist.setCurrentIndex(0);
+        player.setPlaylist(&playlist);
+        player.setVolume(50);
+    }
+
     qDebug() << "Files:\n" << music_paths << "\n" ;
     qDebug() << "Day of week now " << QDate::currentDate().dayOfWeek() << "\n";
     qInfo() << playlist.mediaCount() << " songs\n";
     qInfo() << "Lesson time " << lesson_time << "\n";
     qInfo() << "Lesson count " << count_lessons << "\n";
-    playlist.shuffle();
-    playlist.setCurrentIndex(0);
-    player.setPlaylist(&playlist);
-    player.setVolume(50);
+
+    return 0;
 }

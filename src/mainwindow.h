@@ -23,10 +23,12 @@ private slots:
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
 
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
     void time();
-    void setings();
+    int setings();
     void ring();
     QTime lessons_list[10];
     QTime end_lessons_list[10];
