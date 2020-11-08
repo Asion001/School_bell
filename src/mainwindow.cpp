@@ -65,7 +65,7 @@ void MainWindow::time()
     {
         if (QTime::currentTime() < lessons_list[i])
         {
-            status_text = QString::number(QTime::currentTime().secsTo(lessons_list[i]) / 60) + " minutes to lesson " + QString::number(i);
+            status_text = QString::number(QTime::currentTime().secsTo(lessons_list[i]) / 60) + " minutes to lesson " + QString::number(i + 1);
             break;
         }
         else status_text = "All Lessons are over :)";
