@@ -37,5 +37,6 @@ private:
     QMediaPlayer player;
     int count_lessons = 0;
     int lesson_time = 45;
+    int volume_player = 50;
 };
 #endif // MAINWINDOW_H

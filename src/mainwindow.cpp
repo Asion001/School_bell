@@ -68,8 +68,19 @@ void MainWindow::time()
             status_text = QString::number(QTime::currentTime().secsTo(lessons_list[i]) / 60) + " minutes to lesson " + QString::number(i + 1);
             break;
         }
-        else status_text = "All Lessons are over :)";
+        else status_text = "";
     }
+
+    for (int i = 0; i < count_lessons; i++)
+    {
+        if (QTime::currentTime() < end_lessons_list[i])
+        {
+            status_text += ". To end break " + QString::number(QTime::currentTime().secsTo(end_lessons_list[i]) / 60);
+            break;
+        }
+        else status_text = "All Lessons are over :) ";
+    }
+
     ui->statusbar->showMessage(status_text);
 
     ui->label->setText(QTime::currentTime().toString());
@@ -120,6 +131,7 @@ int MainWindow::setings()
         if (line == "Time:\n") data_index = 1;
         else if (line == "Days:\n") data_index = 2;
         else if (line == "Lessons time:\n") data_index = 3;
+        else if (line == "Volume:\n") data_index = 4;
         else if (data_index == 1)
         {
             lessons_list[count_lessons] = QTime::fromString(line,"hh':'mm'\n'");
@@ -131,10 +143,14 @@ int MainWindow::setings()
         }
         else if (data_index == 3)
         {
-            line.resize(2);
+            //line.resize(2);
             lesson_time = line.toInt();
         }
-
+        else if (data_index == 4)
+        {
+            //line.resize(2);
+            volume_player = line.toInt();
+        }
     }
     if (count_lessons < 1)
     {
@@ -191,7 +207,7 @@ int MainWindow::setings()
         playlist.setPlaybackMode(QMediaPlaylist::Loop);
         playlist.setCurrentIndex(0);
         player.setPlaylist(&playlist);
-        player.setVolume(50);
+        player.setVolume(volume_player);
     }
 
     qDebug() << "Files:\n" << music_paths << "\n" ;
