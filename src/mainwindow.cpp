@@ -128,7 +128,8 @@ int MainWindow::setings()
         QString line = file.readLine();
         qDebug() << "line " << count_lessons << " = " << line << "\n";
 
-        if (line == "Time:\n") data_index = 1;
+        if (line == "\n" or line == "");
+        else if (line == "Time:\n") data_index = 1;
         else if (line == "Days:\n") data_index = 2;
         else if (line == "Lessons time:\n") data_index = 3;
         else if (line == "Volume:\n") data_index = 4;
