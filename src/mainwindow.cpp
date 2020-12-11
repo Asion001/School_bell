@@ -30,6 +30,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     qDebug() << player.state() << "\n";
+
     if (player.state() == QMediaPlayer::PausedState or player.state() == QMediaPlayer::StoppedState)
     {
         QMessageBox::StandardButton reply;
@@ -100,13 +101,18 @@ void MainWindow::time()
             if (QTime::currentTime().hour() != ring_now.hour() or QTime::currentTime().minute() != ring_now.minute())
             {
                 ring();
-                QTimer::singleShot(10000,[&]()
+                for (int i2 = 0; i2 < count_break; i2++ )
                 {
-                    qDebug() << "Play music " << "\n";
-                    player.play();
-                    player.playlist()->next();
-                } );
-
+                    if (i + 1 == music_lessons[i2])
+                    {
+                        QTimer::singleShot(10000,[&]()
+                        {
+                            qDebug() << "Play music " << "\n";
+                            player.play();
+                            player.playlist()->next();
+                        } );
+                    }
+                }
             }
             else break;
         }
@@ -133,6 +139,7 @@ int MainWindow::setings()
         else if (line == "Days:\n") data_index = 2;
         else if (line == "Lessons time:\n") data_index = 3;
         else if (line == "Volume:\n") data_index = 4;
+        else if (line == "Music on:\n") data_index = 5;
         else if (data_index == 1)
         {
             lessons_list[count_lessons] = QTime::fromString(line,"hh':'mm'\n'");
@@ -151,6 +158,12 @@ int MainWindow::setings()
         {
             //line.resize(2);
             volume_player = line.toInt();
+        }
+        else if (data_index == 5)
+        {
+            line.resize(1);
+            music_lessons[count_break] = line.toInt();
+            count_break++;
         }
     }
     if (count_lessons < 1)

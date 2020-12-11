@@ -30,13 +30,15 @@ private:
     void time();
     int setings();
     void ring();
-    QTime lessons_list[10];
-    QTime end_lessons_list[10];
+    QTime lessons_list[20];
+    QTime end_lessons_list[20];
     QTime ring_now;
     QMediaPlaylist playlist;
     QMediaPlayer player;
     int count_lessons = 0;
+    int count_break = 0;
     int lesson_time = 45;
     int volume_player = 50;
+    int music_lessons[20] = {4,5};
 };
 #endif // MAINWINDOW_H
